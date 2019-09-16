@@ -1,35 +1,48 @@
 
 import { db } from '../../main'
 
-// initial state
 const state = {
     theme: 'dark',
+    drawerOpen: true,
     availableThemes: ['dark', 'light']
 };
 
 const getters = {
-    actualTheme: state => {
-        return state.theme;
+    themeIsDark: actualState => {
+        return actualState.theme === 'dark';
     },
-    availableThemes: state => {
-        return state.availableThemes
+    availableThemes: actualState => {
+        return actualState.availableThemes
+    },
+    drawerIsOpen: actualState => {
+        return actualState.drawerOpen
     }
     
 };
 
 const actions = {
-    subscribeTheme: context => {
+    SET_THEME: (context, payload) => {
+        context.commit('theme',  payload )
+    },
+    TOGGLE_DRAWER: (context) => {
+        context.commit('drawer',  !context.state.drawerOpen )
+    },
+    SUBSCRIBE_THEME: (context) => {
         context.commit('subscribeTheme')
     },
-    unsubscribeTheme: context => {
+    UNSUBSCRIBE_THEME: context => {
         context.commit('unsubscribeTheme')
     }
 }
 
-let unsubscribeTheme;
+let unsubscribeFirebaseTheme;
 
 const mutations = {
-    theme: (state, theme) => {
+    drawer: (actualState, drawerIsOpen) => {
+        actualState.drawerOpen = drawerIsOpen;
+    },
+    
+    theme: (actualState, theme) => {
         
         db.collection("themes").doc('1').set({theme: theme})
         .then(() => {
@@ -39,22 +52,22 @@ const mutations = {
             console.log("error: " + error);
         })
     },
-    subscribeTheme: givenState => {
+    subscribeTheme: actualState => {
         console.log('subscribe to themeUpdates.')
-        unsubscribeTheme = db.collection("themes")
+        unsubscribeFirebaseTheme = db.collection("themes")
           .onSnapshot(function(snapshot) {
               snapshot.docChanges().forEach(function(change) {
                   if (change.type === "added") {
                       if(change.doc.id === "1") {
-                          givenState.theme = change.doc.data().theme
+                          actualState.theme = change.doc.data().theme
                       }
                   } else if (change.type === "modified") {
                       if(change.doc.id === "1") {
-                          givenState.theme = change.doc.data().theme
+                          actualState.theme = change.doc.data().theme
                       }
                   } else if (change.type === "removed") {
                       if(change.doc.id === "1") {
-                          givenState.theme = "dark"
+                          actualState.theme = "dark"
                       }
                   }
               });
@@ -62,7 +75,7 @@ const mutations = {
     },
     unsubscribeTheme: () => {
         console.log('unsubscribe from themeUpdates.')
-        unsubscribeTheme()
+        unsubscribeFirebaseTheme()
     }
     
 };
