@@ -38,22 +38,12 @@
             <v-divider></v-divider>
 
             <v-list nav>
-                <v-list-item link>
+                <v-list-item v-for="item in links" :key="item.title" link :to="item.route">
                     <v-list-item-icon>
-                        <v-icon>mdi-space-invaders</v-icon>
+                        <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-icon>
-
                     <v-list-item-content>
-                        <v-list-item-title>Products</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-icon>
-                        <v-icon right>mdi-shopify</v-icon>
-                    </v-list-item-icon>
-
-                    <v-list-item-content right>
-                        <v-list-item-title>Testshop</v-list-item-title>
+                        <v-list-item-title>{{ item.text }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -64,6 +54,16 @@
 
 <script>
     export default {
+        
+        data() {
+          return {
+              links: [
+                  { icon: 'mdi-space-invaders', text: 'Home', route: '/' },
+                  { icon: 'mdi-shopify', text: 'Products', route: '/products' },
+              ]
+          }  
+        },
+        
         beforeCreate: function() {
             this.$store.dispatch('ui/SUBSCRIBE_THEME')
         },

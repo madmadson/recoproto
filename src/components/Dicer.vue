@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout text-center wrap>
-      123
+      {{dicer}}
 
     </v-layout>
   </v-container>
@@ -10,7 +10,7 @@
 <script>
 export default {
   data: () => ({
-   
+    dicer: 123
   }),
 };
 </script>
