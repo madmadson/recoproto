@@ -7,15 +7,15 @@
                 <span class="font-weight-black">Proto</span>
             </v-toolbar-title>
             <div class="flex-grow-1"></div>
-            <v-menu :close-on-click="true">
+            <v-menu id="button-themes" :close-on-click="true" :dark="themeIsDark">
                 <template v-slot:activator="{ on }">
-                    <v-btn v-on="on">
+                    <v-btn  v-on="on">
                         Themes
                     </v-btn>
                 </template>
                 <v-list>
-                    <v-list-item v-for="theme in availableThemes" :key="theme" @click="selectTheme(theme)">
-                        <v-list-item-title>{{ theme }}</v-list-item-title>
+                    <v-list-item :id="'select-theme-item-' + theme" v-for="theme in availableThemes" :key="theme" @click="selectTheme(theme)">
+                        <v-list-item-title >{{ theme }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
