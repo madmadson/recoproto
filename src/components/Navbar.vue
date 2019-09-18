@@ -7,14 +7,14 @@
                 <span class="font-weight-black">Proto</span>
             </v-toolbar-title>
             <div class="flex-grow-1"></div>
-            <v-menu id="button-themes" :close-on-click="true" :dark="themeIsDark">
+            <v-menu id="button-select-theme" :close-on-click="true" :dark="themeIsDark">
                 <template v-slot:activator="{ on }">
                     <v-btn  v-on="on">
                         Themes
                     </v-btn>
                 </template>
                 <v-list>
-                    <v-list-item :id="'select-theme-item-' + theme" v-for="theme in availableThemes" :key="theme" @click="selectTheme(theme)">
+                    <v-list-item :id="'select-theme-item-' + theme" v-for="theme in availableThemes" :key="theme" @click="setTheme(theme)">
                         <v-list-item-title >{{ theme }}</v-list-item-title>
                     </v-list-item>
                 </v-list>
@@ -24,7 +24,7 @@
                 <v-icon right>exit_to_app</v-icon>
             </v-btn>
         </v-app-bar>
-        <v-navigation-drawer :value="drawerIsOpen" app  :dark="themeIsDark">
+        <v-navigation-drawer :value="drawerIsOpen" app :dark="themeIsDark">
             <v-list-item>
                 <v-list-item-content>
                     <v-list-item-title class="title">
@@ -83,7 +83,7 @@
             }
         },
         methods: {
-            selectTheme: function(theme) {
+            setTheme: function(theme) {
                 this.$store.dispatch('ui/SET_THEME', theme);
             },
             setDrawer: function() {
