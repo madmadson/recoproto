@@ -3,7 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store/index'
 import vuetify from './plugins/vuetify';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/firestore'
 // add this to your local setup 
 import firebaseConfig from '../firebaseConfig.json'
 

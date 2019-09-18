@@ -38,7 +38,7 @@
             <v-divider></v-divider>
 
             <v-list nav>
-                <v-list-item v-for="item in links" :key="item.title" link :to="item.route">
+                <v-list-item :id="'navigation-' + item.text"  v-for="item in links" :key="item.title" link @click="navigateTo(item.routeName)">
                     <v-list-item-icon>
                         <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-icon>
@@ -58,8 +58,8 @@
         data() {
           return {
               links: [
-                  { icon: 'mdi-space-invaders', text: 'Home', route: '/' },
-                  { icon: 'mdi-shopify', text: 'Products', route: '/products' },
+                  { icon: 'mdi-space-invaders', text: 'Home', routeName: 'Home' },
+                  { icon: 'mdi-shopify', text: 'Products', routeName: 'Products' },
               ]
           }  
         },
@@ -88,6 +88,9 @@
             },
             setDrawer: function() {
                 this.$store.dispatch('ui/TOGGLE_DRAWER')
+            },
+            navigateTo: function(routeName) {
+                this.$router.push({ name: routeName })
             }
         }
     };

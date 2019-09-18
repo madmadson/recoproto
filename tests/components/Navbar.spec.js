@@ -4,13 +4,16 @@ import Vue from 'vue';
 import Vuex from 'vuex'
 import Vuetify from 'vuetify';
 import Navbar from '@/components/Navbar'
-Vue.use(Vuetify, Vuex)
+import VueRouter from 'vue-router'
+
+Vue.use(Vuetify, Vuex, VueRouter)
 
 describe('Navbar.vue', () => {
 
     let mockStore
     let wrapper
     let getters
+    let mockRouter
     
     beforeEach(() => {
         getters = {
@@ -21,10 +24,13 @@ describe('Navbar.vue', () => {
             dispatch: jest.fn(),
             getters
         }
-       
+        mockRouter = {
+            push: jest.fn(),
+        }
         wrapper = shallowMount(Navbar, {
             mocks: {
-                $store: mockStore
+                $store: mockStore,
+                $router: mockRouter
             }
         })
     })
@@ -44,6 +50,14 @@ describe('Navbar.vue', () => {
         // click the menu entry 
         wrapper.find('#select-theme-item-light').vm.$emit('click')
         expect(mockStore.dispatch).toHaveBeenCalledWith("ui/SET_THEME", "light")
+    })
+
+    it('test navigation',  () => {
+        // click the 
+        wrapper.find('#navigation-Home').vm.$emit('click')
+        expect(mockRouter.push).toHaveBeenCalledWith({name: 'Home'})
+        wrapper.find('#navigation-Products').vm.$emit('click')
+        expect(mockRouter.push).toHaveBeenCalledWith({name: 'Products'})
     })
 
 })
