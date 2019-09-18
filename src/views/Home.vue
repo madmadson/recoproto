@@ -1,13 +1,13 @@
 <template>
-  <Dicer />
+  <Home />
 </template>
 
 <script>
-import Dicer from '../components/Dicer';
+import Home from '../components/Home';
 
 export default {
   components: {
-    Dicer,
+    Home,
   },
 };
 </script>

@@ -3,7 +3,7 @@ import { db } from '../../main'
 
 const state = {
     theme: 'dark',
-    drawerOpen: true,
+    drawerOpen: false,
     availableThemes: ['dark', 'light']
 };
 

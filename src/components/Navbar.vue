@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar :dark="themeIsDark" app>
+        <v-app-bar color="green" flat :dark="themeIsDark" app>
             <v-app-bar-nav-icon @click="setDrawer"></v-app-bar-nav-icon>
             <v-toolbar-title class="text-uppercase">
                 <span class="font-weight-thin">Reco</span>
@@ -90,7 +90,7 @@
                 this.$store.dispatch('ui/TOGGLE_DRAWER')
             },
             navigateTo: function(routeName) {
-                this.$router.push({ name: routeName })
+                this.$router.replace({ name: routeName }).catch(() => {})
             }
         }
     };

@@ -1,0 +1,7 @@
+[
+  {"text": "g:id", "value": "g:id"},
+  { "text": "Title", "value": "title" },
+  { "text": "category", "value": "g:google_product_category" },
+  { "text": "link", "value": "link" },
+  { "text": "image_link", "value": "g:image_link" }
+]
