@@ -1,8 +1,10 @@
 <template>
-    <div>
-        <div>Hallo products</div>
-        <ProductTable/>
-    </div>
+    <v-layout column>
+        <v-flex style="overflow: auto">
+            <div>Hallo products</div>
+            <ProductTable/>
+        </v-flex>
+    </v-layout>
 </template>
 
 <script>

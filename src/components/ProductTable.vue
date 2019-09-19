@@ -1,32 +1,25 @@
 <template>
     <div>
         <v-data-table dense :dark="themeIsDark"
-                :headers="headers"
-                :items="products" 
-                :loading="loading" 
-                :page.sync="page" 
-                :items-per-page="itemsPerPage"
-                hide-default-footer
-                :page-count="pageCount"
-                class="elevation-1">
-                <template slot="body">
-                    <tbody>
-                        <tr v-for="product in products" :key="product.id">
-                            <td class="product-table" v-for="header in headers" :key="header.id" >
-                                {{ product[header.value] }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </template>
+            :headers="headers"
+            :items="products"
+            :height="600"
+            class="elevation-1">
+            <template slot="item">
+                <tr v-for="product in products" :key="product.id">
+                    <td class="product-table-td" v-for="header in headers" :key="header.id" >
+                        {{ product[header.value] }}
+                    </td>
+                </tr>
+            </template>
         </v-data-table>
-        <div class="text-center pt-2">
-            <v-pagination v-model="page" :length="pageCount"></v-pagination>
-        </div>
+       
     </div>
 </template>
 
 <style lang="scss">
-    .product-table {
+    .product-table-td {
+        width: 100px;
         max-width: 100px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -41,10 +34,6 @@
     
     export default {
         data: () => ({
-            page: 1,
-            pageCount: 10,
-            itemsPerPage: 10,
-            loading: false,
             headers,
             products,
         }),
@@ -52,23 +41,7 @@
             themeIsDark() {
                 return this.$store.getters['ui/themeIsDark'];
             },
-            pagination: {
-                get: function () {
-                    return this.$store.getters['productTable/pagination']
-                }
-            },
-        },
-        watch: {
-            pagination: {
-                handler () {
-                    this.loading = true
-                    this.$store.dispatch('queryItems')
-                        .then(() => {
-                            this.loading = false
-                        })
-                },
-                deep: true
-            }
+            
         },
     };
 </script>
