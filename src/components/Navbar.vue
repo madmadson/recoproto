@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-app-bar color="green" flat :dark="themeIsDark" app>
+        <v-app-bar  flat :dark="themeIsDark" app>
             <v-app-bar-nav-icon @click="setDrawer"></v-app-bar-nav-icon>
             <v-toolbar-title class="text-uppercase">
                 <span class="font-weight-thin">Reco</span>
@@ -25,17 +25,18 @@
             </v-btn>
         </v-app-bar>
         <v-navigation-drawer :value="drawerIsOpen" app :dark="themeIsDark">
-            <v-list-item>
-                <v-list-item-content>
-                    <v-list-item-title class="title">
-                        PROJECT OCER
-                    </v-list-item-title>
-                    <v-list-item-subtitle>
-                        recommendations simplified
-                    </v-list-item-subtitle>
-                </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
+            <v-list>
+                <v-list-item>
+                    <v-list-item-content >
+                        <v-list-item-title class="title">
+                            PROJECT OCER
+                        </v-list-item-title>
+                        <v-list-item-subtitle>
+                            recommendations simplified
+                        </v-list-item-subtitle>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
 
             <v-list nav>
                 <v-list-item :id="'navigation-' + item.text"  v-for="item in links" :key="item.title" link @click="navigateTo(item.routeName)">
@@ -65,10 +66,10 @@
         },
         
         beforeCreate: function() {
-            this.$store.dispatch('ui/SUBSCRIBE_THEME')
+            //this.$store.dispatch('ui/SUBSCRIBE_THEME')
         },
         beforeDestroy: function() {
-            this.$store.dispatch('ui/UNSUBSCRIBE_THEME')
+            //this.$store.dispatch('ui/UNSUBSCRIBE_THEME')
         },
 
         computed: {
